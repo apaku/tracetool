@@ -39,5 +39,5 @@ deploy:
   skip_cleanup: true
   on:
     tags: true
-    on: $TRAVIS_COMPILER = clang
+    condition: $TRAVIS_COMPILER = clang
     repo: apaku/tracetool
