@@ -17,7 +17,7 @@ before_install:
 env:
     - CMAKE_PREFIX_PATH=/usr/local/opt/qt5:/opt/qt59
 script:
-    - git describe
+    - git describe --tags
     - echo $TRAVIS_TAG
     - mkdir build
     - pushd build
