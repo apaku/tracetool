@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 set -x
 
 if [[ "x$TRAVIS_TAG" == "x" ]] ; then
