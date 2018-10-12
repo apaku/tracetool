@@ -24,3 +24,23 @@ script:
     - ninja test
     - ninja package
     - popd
+
+before_deploy:
+    - mkdir pkgbuild
+    - cd pkgbuild
+    - cmake -DCMAKE_BUILD_TYPE=Release -DBUNDLE_QT=ON -G 'Ninja' ..
+    - ninja package
+    - cd ..
+deploy:
+  provider: releases
+  api_key:
+    secure: PusiZUPLr1Oh2F8GhemzCP+4BOG19SDfUYEWXblS/z1sryEDl3NWDynKdd9bW8N7vanQYkWpez8+qf3qs680tSuohPY5JnUQgreZkqJZR/KMWpcRH+AXSe41KbNQBTQMGiVVvwbBXje7i7GiP4LBVWwHQvsj2ehqnZWtpqjOkJXEQoJlT0IQMtZ95rHC1bSxTzy9BTKcyZdloojBs9CKaSqLT6Hw0ZH9bFW3Ptpo7buRs/Oi80BPO5X/rUMxHnoqtGKAr0Gd+O3ocCcvskaogvyUKyYFE69Dn2Jh0dKGTb3uavSs4nbVVeK8AfIbzy6Kn/OR/pwUI4KrDQfKC2fo2oA+8DtP7kN+EXH8OubheS3oQT2hgifnmB8oUARush9sJyLCeCxNUXTygEAR+n3RiG4rabXNnDYF+ZkJJ9Sj11i9mKgzh361xkx2Ha5+2ofgvO7qY0MhrZj/vJEoVoyJX2swoRPB02/I3oPHDvbGEyqfA8oeDoIVAd5KC1m0nrpwWNlrUHCu/kKLvboQr1hGLaNUKRgd6HxOqyBNV+JhKVQqlD+iWuH1EGupsbQZJJ5aMcJiRBpLiEbnzexFOPUgwWYH71jpL3BZLMyWWGjB34fznIjEz0KzmnQDdynV/VlQJhndb7v/wrbNrIhGs7mHQbHTgm+UsbNj615dr8iOKtM=
+  file_glob: true
+  file:
+      - "pkgbuild/tracelib-*Tools*"
+      - "pkgbuild/tracelib-*Documentation*"
+      - "pkgbuild/tracelib-*Library*"
+  skip_cleanup: true
+  on:
+    tags: true
+    repo: apaku/tracetool
