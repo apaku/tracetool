@@ -18,6 +18,7 @@ env:
     - CMAKE_PREFIX_PATH=/usr/local/opt/qt5:/opt/qt59
 script:
     - git describe
+    - echo $TRAVIS_TAG
     - mkdir build
     - pushd build
     - cmake -G "Ninja" ..
