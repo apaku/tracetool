@@ -17,4 +17,10 @@ before_install:
 env:
     - CMAKE_PREFIX_PATH=/usr/local/opt/qt5:/opt/qt59
 script:
-    - mkdir build && pushd build && cmake -G "Ninja" .. && ninja && ninja test && ninja package && popd
+    - mkdir build
+    - pushd build
+    - cmake -G "Ninja" ..
+    - ninja
+    - ninja test
+    - ninja package
+    - popd
