@@ -15,7 +15,8 @@ before_install:
     - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then sudo apt-get -qq update; fi
     - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then sudo apt-get install -y qt59base qt59tools ninja-build doxygen; fi
 env:
-    - CMAKE_PREFIX_PATH=/usr/local/opt/qt5:/opt/qt59
+    global:
+        - CMAKE_PREFIX_PATH=/usr/local/opt/qt5:/opt/qt59
 script:
     - if [[ "x$TRAVIS_TAG" == "x" ]]; then export BUILD_TYPE=Debug; export BUNDLE_QT=OFF; else export BUILD_TYPE=Release; export BUNDLE_QT=ON; fi
     - mkdir build
