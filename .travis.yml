@@ -44,4 +44,5 @@ deploy:
   skip_cleanup: true
   on:
     tags: true
+    on: $CC = clang
     repo: apaku/tracetool
