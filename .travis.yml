@@ -7,13 +7,19 @@ compiler:
     - gcc
 sudo: required
 dist: trusty
+services: docker
 install: true
 before_install:
     - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
     - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install doxygen qt5 ninja; fi
-    - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then sudo add-apt-repository -y ppa:beineri/opt-qt596-trusty; fi
-    - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then sudo apt-get -qq update; fi
-    - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then sudo apt-get install -y qt59base qt59tools ninja-build doxygen; fi
+    - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; docker info
+    - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; docker pull rabits/qt
+    - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; docker run -d rabits/qt /bin/bash -c "apt-get install binutils-dev lib6-dev"
+    - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; docker ps
+    - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; docker run rabits/qt /bin/bash -c "find / -name CMakeLists.txt"
+#    - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then sudo add-apt-repository -y ppa:beineri/opt-qt596-trusty; fi
+#    - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then sudo apt-get -qq update; fi
+#    - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then sudo apt-get install -y qt59base qt59tools ninja-build doxygen; fi
 env:
     global:
         - CMAKE_PREFIX_PATH=/usr/local/opt/qt5:/opt/qt59
