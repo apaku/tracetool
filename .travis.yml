@@ -46,3 +46,6 @@ deploy:
     tags: true
     condition: $TRAVIS_COMPILER = clang
     repo: apaku/tracetool
++ docker run -v ~/squish/tracer:/tracer tracetool:test /bin/bash -c "cd pkgbuild && ninja package"
++ docker run -v ~/squish/tracer:/tracer tracetool:test /bin/bash -c "cd /tracer/pkgbuild && cmake -DCMAKE_PREFIX_PATH=/opt/Qt/5.9.6/gcc_64 -DBUNDLE_QT=ON -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_RPATH=\ORIGIN/../lib -G Ninja .."
+
