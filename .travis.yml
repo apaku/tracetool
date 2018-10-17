@@ -10,27 +10,12 @@ dist: trusty
 services: docker
 install: true
 before_install:
-    - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
-    - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install doxygen qt5 ninja; fi
-    - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; docker info
-    - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; docker pull rabits/qt
-    - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; docker run -d rabits/qt /bin/bash -c "apt-get install binutils-dev lib6-dev"
-    - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; docker ps
-    - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; docker run rabits/qt /bin/bash -c "find / -name CMakeLists.txt"
-#    - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then sudo add-apt-repository -y ppa:beineri/opt-qt596-trusty; fi
-#    - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then sudo apt-get -qq update; fi
-#    - if [[ "$TRAVIS_OS_NAME" != "osx" ]]; then sudo apt-get install -y qt59base qt59tools ninja-build doxygen; fi
+    - ./install_requirements.sh $TRAVIS_OS_NAME
 env:
     global:
-        - CMAKE_PREFIX_PATH=/usr/local/opt/qt5:/opt/qt59
+        - CMAKE_PREFIX_PATH=/usr/local/opt/qt5:/opt/Qt/5.9.6/gcc_64
 script:
-    - mkdir build
-    - pushd build
-    - ../run_cmake_for_travis_env.sh -G Ninja ..
-    - ninja
-    - ninja test
-    - ninja package
-    - popd
+    - ./build.sh ${TRAVIS_OS_NAME} ${TRAVIS_TAG}
 
 deploy:
   provider: releases
@@ -46,6 +31,4 @@ deploy:
     tags: true
     condition: $TRAVIS_COMPILER = clang
     repo: apaku/tracetool
-+ docker run -v ~/squish/tracer:/tracer tracetool:test /bin/bash -c "cd pkgbuild && ninja package"
-+ docker run -v ~/squish/tracer:/tracer tracetool:test /bin/bash -c "cd /tracer/pkgbuild && cmake -DCMAKE_PREFIX_PATH=/opt/Qt/5.9.6/gcc_64 -DBUNDLE_QT=ON -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_RPATH=\ORIGIN/../lib -G Ninja .."
 
