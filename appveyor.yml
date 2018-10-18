@@ -8,6 +8,11 @@ environment:
         - TRACETOOL_ARCH: x64
 matrix:
     fast_finish: true
+
+cache:
+  - C:\ProgramData\chocolatey\bin -> appveyor.yml
+  - C:\ProgramData\chocolatey\lib -> appveyor.yml
+
 install:
     - cinst ninja doxygen.install
 
