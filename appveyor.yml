@@ -12,6 +12,7 @@ matrix:
 cache:
   - C:\ProgramData\chocolatey\bin -> appveyor.yml
   - C:\ProgramData\chocolatey\lib -> appveyor.yml
+  - C:\Program Files\doxygen\ -> appveyor.yml
 
 install:
     - cinst ninja doxygen.install
