@@ -11,9 +11,6 @@ services: docker
 install: true
 before_install:
     - ./install_requirements.sh $TRAVIS_OS_NAME
-env:
-    global:
-        - CMAKE_PREFIX_PATH=/usr/local/opt/qt5:/opt/Qt/5.9.6/gcc_64
 script:
     - ./build.sh ${TRAVIS_OS_NAME} ${TRAVIS_TAG}
 
