@@ -1,21 +1,21 @@
+version: '{build}'
 branches:
     only:
         - release_work
-platform:
-    - x86
-    - x64
+environment:
+    matrix:
+        - TRACETOOL_ARCH: x86
+        - TRACETOOL_ARCH: x64
 matrix:
     fast_finish: true
 install:
     - cinst ninja doxygen.install
-#    - call "%ProgramFiles(x86)%\Microsoft Visual Studio 12.0\VC\vcvarsall.bat" x86
-#    - set CMAKE_PREFIX_PATH=C:\Qt\5.9.5\msvc2015
 
 build_script:
-    - mkdir build 
-    - cd build
-    - cmake -G "Ninja" ..
-    - ninja
+    - call build.cmd %TRACETOOL_ARCH% %APPVEYOR_REPO_TAG%
 
 test_script:
+    - set
+    - pushd build
     - ninja test
+    - popd
