@@ -10,17 +10,17 @@ if "%~2" == "true" (
     ) else goto usage
 )
 
-if "%~1" == "x86" goto x86 else (
-    if "%~1" == "x64" goto x64 else goto usage
+if "%~1" == "x86" goto 32bit else (
+    if "%~1" == "x64" goto 64bit else goto usage
 )
 
-:x86
+:32bit
 call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86
 set prefixPath=C:\Qt\5.9.5\msvc2015
 set archSuffix="x86"
 goto build
 
-:x64
+:64bit
 call "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64
 call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86_amd64
 set prefixPath=C:\Qt\5.9.5\msvc2015_64
