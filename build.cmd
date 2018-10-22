@@ -16,6 +16,7 @@ if "%~1" == "x86" goto 32bit else (
 
 :32bit
 call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86
+@echo on
 set prefixPath=C:\Qt\5.9.5\msvc2015
 set archSuffix="x86"
 goto build
@@ -23,6 +24,7 @@ goto build
 :64bit
 call "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64
 call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86_amd64
+@echo on
 set prefixPath=C:\Qt\5.9.5\msvc2015_64
 set archSuffix="x64"
 goto build
