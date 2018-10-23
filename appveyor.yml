@@ -21,8 +21,4 @@ build_script:
     - call build.cmd %TRACETOOL_ARCH% %APPVEYOR_REPO_TAG%
 
 test_script:
-    # Add Qt bin dir to path, using build.cmd envvar, to run tests
-    - set PATH=%PATH%;%prefixPath%\bin
-    - pushd build
-    - ninja test
-    - popd
+    - call test.cmd
