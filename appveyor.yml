@@ -2,6 +2,7 @@ version: '{build}'
 branches:
     only:
         - release_work
+        - refs/tags/*
 environment:
     matrix:
         - TRACETOOL_ARCH: x86
