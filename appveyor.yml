@@ -22,3 +22,14 @@ build_script:
 
 test_script:
     - call test.cmd
+
+artifacts:
+    path: 'build\tracelib-*.zip'
+
+deploy:
+    provider: GitHub
+    artifact: /tracelib-.*zip/
+    auth_token:
+        secure: fpX60tGeFQagF3J67doUTlTM2Esqb80OUpY7ZN4Drf1Iy0nOLT41TpOSJ0kuBGsO
+    on:
+        APPVEYOR_REPO_TAG: true

@@ -4,9 +4,11 @@ if "%~2" == "" goto usage
 
 if "%~2" == "true" (
     set buildType=Release
+    set buildTarget=package
 ) else (
     if "%~2" == "false" (
         set buildType=Debug
+        set buildTarget=
     ) else goto usage
 )
 
@@ -33,7 +35,7 @@ goto build
 mkdir build
 pushd build
 cmake -DARCH_LIB_SUFFIX=%archSuffix% -DCMAKE_PREFIX_PATH=%prefixPath% -DCMAKE_BUILD_TYPE=%buildType% -G "Ninja" ..
-ninja
+ninja %buildTarget%
 goto exit
 
 :usage
